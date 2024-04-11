@@ -14,6 +14,8 @@ class SolutionTest {
             "II,2",
             "X,10",
             "XX,20",
+            "C,100",
+            "CC,200",
     })
     public void ローマ数字を渡すと数字に変換される(String s, int expected){
         var solution = new Solution();

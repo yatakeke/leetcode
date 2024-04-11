@@ -11,6 +11,9 @@ public class Solution {
             if (String.valueOf(s.charAt(i)).equals("X")) {
                 result += 10;
             }
+            if (String.valueOf(s.charAt(i)).equals("C")) {
+                result += 100;
+            }
         }
         return result;
     }
