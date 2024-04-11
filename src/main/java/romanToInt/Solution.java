@@ -5,15 +5,15 @@ import java.util.HashMap;
 public class Solution {
 
     private HashMap<String, Integer> countMap = getCountMap();
+    private HashMap<String, Integer> minusMap = getMinusMap();
     public int romanToInt(String s) {
 
         int result = 0;
-        if (s.contains(new StringBuilder("IV"))) {
-            result -= 2;
-        }
 
-        if (s.contains(new StringBuilder("IX"))) {
-            result -= 2;
+        for (var key: this.minusMap.keySet()) {
+            if (s.contains(new StringBuilder(key))) {
+                result -= this.minusMap.get(key);
+            }
         }
 
         for (int i = 0; i < s.length(); i++) {
@@ -22,6 +22,14 @@ public class Solution {
 
         }
         return result;
+    }
+
+    private HashMap<String, Integer> getMinusMap() {
+        var minusMap = new HashMap<String, Integer>();
+        minusMap.put("IV", 2);
+        minusMap.put("IX", 2);
+        minusMap.put("XL", 20);
+        return minusMap;
     }
 
     private HashMap<String, Integer> getCountMap() {
@@ -35,4 +43,5 @@ public class Solution {
         countMap.put("M", 1000);
         return countMap;
     }
+
 }
