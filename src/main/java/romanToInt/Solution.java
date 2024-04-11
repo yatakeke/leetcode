@@ -8,6 +8,14 @@ public class Solution {
     public int romanToInt(String s) {
 
         int result = 0;
+        if (s.contains(new StringBuilder("IV"))) {
+            result -= 2;
+        }
+
+        if (s.contains(new StringBuilder("IX"))) {
+            result -= 2;
+        }
+
         for (int i = 0; i < s.length(); i++) {
             var chatAt = String.valueOf(s.charAt(i));
             result += this.countMap.get(chatAt);
