@@ -29,6 +29,9 @@ public class Solution {
         minusMap.put("IV", 2);
         minusMap.put("IX", 2);
         minusMap.put("XL", 20);
+        minusMap.put("XC", 20);
+        minusMap.put("CD", 200);
+        minusMap.put("CM", 200);
         return minusMap;
     }
 

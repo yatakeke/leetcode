@@ -23,6 +23,9 @@ class SolutionTest {
             "IV,4",
             "IX, 9",
             "XL, 40",
+            "XC, 90",
+            "CD, 400",
+            "CM, 900",
     })
     public void ローマ数字を渡すと数字に変換される(String s, int expected){
         var solution = new Solution();
