@@ -19,8 +19,12 @@ public class Solution {
     private HashMap<String, Integer> getCountMap() {
         var countMap = new HashMap<String, Integer>();
         countMap.put("I", 1);
+        countMap.put("V", 5);
         countMap.put("X", 10);
+        countMap.put("L", 50);
         countMap.put("C", 100);
+        countMap.put("D", 500);
+        countMap.put("M", 1000);
         return countMap;
     }
 }
