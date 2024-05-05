@@ -35,8 +35,8 @@ class Solution {
 
                     candidates.get(value).add(cell);
                 }
-                board.updateBy(candidates);
             }
+            board.updateBy(candidates);
         }
         return board.getAnswer();
     }
