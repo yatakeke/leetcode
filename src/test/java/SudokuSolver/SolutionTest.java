@@ -1,14 +1,8 @@
 package SudokuSolver;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
 
-import java.util.Arrays;
-import java.util.HashMap;
 
 import static com.google.common.truth.Truth.assertThat;
 
@@ -16,7 +10,7 @@ class SolutionTest {
 
 
     private char[][] board;
-    private Solution solution;
+    private char[][] expected;
 
     @BeforeEach
     void setUp() {
@@ -31,59 +25,24 @@ class SolutionTest {
                 {'.','.','.','4','1','9','.','.','5'},
                 {'.','.','.','.','8','.','.','7','9'}
         };
-        solution = new Solution();
+        expected = new char[][]{
+                {'5','3','4','6','7','8','9','1','2'},
+                {'6','7','2','1','9','5','3','4','8'},
+                {'1','9','8','3','4','2','5','6','7'},
+                {'8','5','9','7','6','1','4','2','3'},
+                {'4','2','6','8','5','3','7','9','1'},
+                {'7','1','3','9','2','4','8','5','6'},
+                {'9','6','1','5','3','7','2','8','4'},
+                {'2','8','7','4','1','9','6','3','5'},
+                {'3','4','5','2','8','6','1','7','9'}
+        };
     }
 
     @Test
-    public void 数字ごとに出現頻度を計算する() {
-
-        HashMap<String, Integer> frequency = solution.countFrequency(board);
-        assertThat(frequency.get("8")).isEqualTo(5);
-        assertThat(frequency.get("9")).isEqualTo(4);
+    public void trial() {
+        var newSolution = new Solution();
+        var result = newSolution.solveSudoku(board);
+        assertThat(result).isEqualTo(expected);
     }
 
-    @Test
-    @DisplayName("列が抜き出せる")
-    public void canExtractColumn() {
-        var column = solution.extractColumn(board, 0);
-        assertThat(column).isEqualTo(
-                Arrays.asList("5", "6", ".", "8", "4", "7", ".", ".", ".")
-        );
-    }
-
-    @Test
-    @DisplayName("1つ目のブロックが抜き出せる")
-    public void canExtractFirstBlock() {
-        var block = solution.extractBlock(board, 0);
-        assertThat(block).isEqualTo(
-                Arrays.asList("5","3",".","6",".",".",".","9","8")
-        );
-    }
-    @Test
-    @DisplayName("9つ目のブロックが抜き出せる")
-    public void canExtractNinthBlock() {
-        var block = solution.extractBlock(board, 8);
-        assertThat(block).isEqualTo(
-                Arrays.asList("2","8",".",".",".","5",".","7","9")
-        );
-    }
-
-    @ParameterizedTest
-    @CsvSource({
-            "0,0,0",
-            "2,4,1",
-            "8,8,8"
-    })
-    @DisplayName("座標からブロック番号が割り出せる")
-    public void canCalculateBlockNumber(int i, int j, int expect) {
-        assertThat(solution.calculateBlockNumber(i, j)).isEqualTo(expect);
-    }
-
-    @Test
-    @Disabled
-    @DisplayName("1行6列目が8であることが確定できる")
-    public void test() {
-        var answer = solution.solveSudoku(board);
-        assertThat(answer[0][5]).isEqualTo("8");
-    }
 }
