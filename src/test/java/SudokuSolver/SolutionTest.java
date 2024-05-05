@@ -1,6 +1,7 @@
 package SudokuSolver;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -37,5 +38,14 @@ class SolutionTest {
         HashMap<String, Integer> frequency = solution.countFrequency(input);
         assertThat(frequency.get("8")).isEqualTo(5);
         assertThat(frequency.get("9")).isEqualTo(4);
+    }
+
+    @Test
+    @DisplayName("列が抜き出せる")
+    public void canExtractColumn() {
+        var column = solution.extractColumn(input, 0);
+        assertThat(column).isEqualTo(
+                Arrays.asList("5", "6", ".", "8", "4", "7", ".", ".", ".")
+        );
     }
 }

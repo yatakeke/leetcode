@@ -18,5 +18,12 @@ class Solution {
         }
         return result;
     }
-    
+
+    public List<String> extractColumn(char[][] input, int rowNumber) {
+        var result = new ArrayList<String>();
+        for (var row: input) {
+            result.add(String.valueOf(row[rowNumber]));
+        }
+        return result;
+    }
 }
