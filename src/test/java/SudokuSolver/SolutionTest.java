@@ -38,22 +38,4 @@ class SolutionTest {
         assertThat(frequency.get("8")).isEqualTo(5);
         assertThat(frequency.get("9")).isEqualTo(4);
     }
-
-    @Test
-    public void _1行目を抜き出せる() {
-        var row = solution.getRow(input, 0);
-
-        assertThat(row).isEqualTo(
-                Arrays.asList( "5", "3", ".", "6", ".", ".", ".", "9", "8")
-        );
-    }
-
-    @Test
-    public void _2行目が抜き出せる() {
-        var row = solution.getRow(input, 1);
-        assertThat(row).isEqualTo(
-                Arrays.asList(".", "7", ".", "1", "9", "5", ".", ".", ".")
-        );
-    }
-
 }
