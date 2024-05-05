@@ -10,34 +10,37 @@ class Solution {
 
         var board = new Board(b);
 
-        for (var n = 0; n < 9; n++) {
-            var candidates = initializeCandidates();
-            var block = board.getBlock(n);
-            for (var cell: block) {
-                if (!cell.value().equals(".")) {
-                    candidates.get(cell.value()).add(cell);
-                    continue;
+        while (board.canAnalyze()) {
+            for (var n = 0; n < 9; n++) {
+                var candidates = initializeCandidates();
+                var block = board.getBlock(n);
+                for (var cell: block) {
+                    if (!cell.value().equals(".")) {
+                        candidates.get(cell.value()).add(cell);
+                        continue;
+                    }
+
+                    var row = board.getRow(cell.y());
+                    var column = board.getColumn(cell.x());
+
+                    for (var value: candidates.keySet()) {
+                        if (block.stream().anyMatch(c -> c.value().equals(value))) {
+                            continue;
+                        }
+                        if (row.stream().anyMatch(c -> c.value().equals(value))) {
+                            continue;
+                        }
+                        if (column.stream().anyMatch(c -> c.value().equals(value))) {
+                            continue;
+                        }
+
+                        candidates.get(value).add(cell);
+                    }
                 }
-
-                var row = board.getRow(cell.y());
-                var column = board.getColumn(cell.x());
-
-                for (var value: candidates.keySet()) {
-                    if (block.stream().anyMatch(c -> c.value().equals(value))) {
-                        continue;
-                    }
-                    if (row.stream().anyMatch(c -> c.value().equals(value))) {
-                        continue;
-                    }
-                    if (column.stream().anyMatch(c -> c.value().equals(value))) {
-                        continue;
-                    }
-
-                    candidates.get(value).add(cell);
-                }
+                board.updateBy(candidates);
             }
-            board.updateBy(candidates);
         }
+
         return board.getAnswer();
     }
 

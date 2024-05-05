@@ -57,4 +57,8 @@ public class Board {
         }
         return result;
     }
+
+    public boolean canAnalyze() {
+        return this.cells.stream().anyMatch(c -> c.value().equals("."));
+    }
 }
