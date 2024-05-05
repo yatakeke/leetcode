@@ -48,4 +48,12 @@ class SolutionTest {
         );
     }
 
+    @Test
+    public void _2行目が抜き出せる() {
+        var row = solution.getRow(input, 1);
+        assertThat(row).isEqualTo(
+                Arrays.asList(".", "7", ".", "1", "9", "5", ".", ".", ".")
+        );
+    }
+
 }

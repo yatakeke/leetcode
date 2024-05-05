@@ -22,10 +22,10 @@ class Solution {
 
     public List<String> getRow(char[][] input, Integer rowNumber) {
         var result = new ArrayList<String>();
-
+        var offset = rowNumber * 3;
         for (var i = 0; i < 3; i++) {
             var block = input[i];
-            for (var j = 0; j < 3; j++) {
+            for (var j = offset; j < offset + 3; j++) {
                 result.add(String.valueOf(block[j]));
             }
         }
