@@ -48,4 +48,21 @@ class SolutionTest {
                 Arrays.asList("5", "6", ".", "8", "4", "7", ".", ".", ".")
         );
     }
+
+    @Test
+    @DisplayName("1つ目のブロックが抜き出せる")
+    public void canExtractFirstBlock() {
+        var block = solution.extractBlock(input, 0);
+        assertThat(block).isEqualTo(
+                Arrays.asList("5","3",".","6",".",".",".","9","8")
+        );
+    }
+    @Test
+    @DisplayName("9つ目のブロックが抜き出せる")
+    public void canExtractNinthBlock() {
+        var block = solution.extractBlock(input, 8);
+        assertThat(block).isEqualTo(
+                Arrays.asList("2","8",".",".",".","5",".","7","9")
+        );
+    }
 }
