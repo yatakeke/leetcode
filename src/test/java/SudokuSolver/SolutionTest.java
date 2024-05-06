@@ -40,7 +40,6 @@ class SolutionTest {
     }
 
     @Test
-    @Disabled
     public void trial() {
         var newSolution = new Solution();
         newSolution.solveSudoku(board);

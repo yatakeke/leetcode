@@ -8,26 +8,52 @@ public class Solution {
     public void solveSudoku(char[][] board) {
         var blocks = createCoordinatesForBlock();
 
-        while (hasEmptyCell(board)) {
+         while (hasEmptyCell(board)) {
             for (var coordinates: blocks) {
                 var candidates = initializeCandidates();
                 for (var coordinate: coordinates) {
-                    findsCandidates(coordinate, candidates);
+                    findsCandidates(coordinate, candidates, board);
                 }
                 update(board, candidates);
+            }
+         }
+    }
+
+    private void update(char[][] board, Map<String, List<Coordinate>> candidates) {
+        for (var num: candidates.keySet()) {
+            var c = candidates.get(num);
+            if (c.size() == 1) {
+                var i = c.get(0).i();
+                var j = c.get(0).j();
+                board[i][j] = num.charAt(0);
             }
         }
     }
 
-    private void update(char[][] board, Map<String, List<Coordinate>> candidates) {
-        // TODO
-        board[0][0] = '1';
-        board[0][3] = '1';
-        board[1][3] = '1';
-    }
+    private void findsCandidates(Coordinate coordinate, Map<String, List<Coordinate>> candidates, char[][] board) {
+        var row = getRow(board, coordinate.i());
+        var column = getColumn(board, coordinate.j());
+        var block = getBlock(board, coordinate.i(), coordinate.j());
 
-    private void findsCandidates(Coordinate coordinate, Map<String, List<Coordinate>> candidates) {
-        // TODO
+        for (var num: candidates.keySet()) {
+            var ch = board[coordinate.i()][coordinate.j()];
+            if (!".".equals(String.valueOf(ch))) {
+                candidates.get(String.valueOf(ch)).add(coordinate);
+                return;
+            }
+
+            if (row.contains(num)) {
+                continue;
+            }
+            if (column.contains(num)) {
+                continue;
+            }
+            if (block.contains(num)) {
+                continue;
+            }
+
+            candidates.get(num).add(coordinate);
+        }
     }
 
     public boolean hasEmptyCell(char[][] board) {
@@ -43,8 +69,14 @@ public class Solution {
     }
 
     public List<String> getRow(char[][] board, int i) {
+        var result = new ArrayList<String>();
         var row = board[i];
-        return Arrays.asList(row).stream().map(c -> String.valueOf(c)).toList();
+
+        for (var c: row) {
+            result.add(String.valueOf(c));
+        }
+
+        return result;
     }
 
     public List<String> getColumn(char[][] board, int j) {
