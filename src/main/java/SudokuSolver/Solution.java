@@ -20,19 +20,23 @@ public class Solution {
     }
 
     private void update(char[][] board, Map<String, List<Coordinate>> candidates) {
+        // TODO
         board[0][0] = '1';
         board[0][3] = '1';
         board[1][3] = '1';
     }
 
     private void findsCandidates(Coordinate coordinate, Map<String, List<Coordinate>> candidates) {
-
+        // TODO
     }
 
     public boolean hasEmptyCell(char[][] board) {
-        for (char[] row: board) {
-            if (Arrays.asList(row).contains('.')) {
-                return true;
+        for (var row: board) {
+            for (var cell: row) {
+                if (".".equals(String.valueOf(cell))) {
+                    return true;
+                }
+
             }
         }
         return false;

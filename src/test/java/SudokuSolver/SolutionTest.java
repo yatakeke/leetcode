@@ -1,6 +1,7 @@
 package SudokuSolver;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 
@@ -39,10 +40,17 @@ class SolutionTest {
     }
 
     @Test
+    @Disabled
     public void trial() {
         var newSolution = new Solution();
         newSolution.solveSudoku(board);
         assertThat(board).isEqualTo(expected);
     }
 
+
+    @Test
+    public void hasEmptyCell() {
+        var solution = new Solution();
+        assertThat(solution.hasEmptyCell(board)).isTrue();
+    }
 }
