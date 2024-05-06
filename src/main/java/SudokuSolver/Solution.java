@@ -1,60 +1,91 @@
 package SudokuSolver;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-class Solution {
-    public char[][] solveSudoku(char[][] b) {
+public class Solution {
 
-        var board = new Board(b);
+    private record Coordinate(int i, int j) {};
+    public void solveSudoku(char[][] board) {
+        var blocks = createCoordinatesForBlock();
 
-        while (board.canAnalyze()) {
-            for (var n = 0; n < 9; n++) {
+        while (hasEmptyCell(board)) {
+            for (var coordinates: blocks) {
                 var candidates = initializeCandidates();
-                var block = board.getBlock(n);
-                for (var cell: block) {
-                    if (!cell.value().equals(".")) {
-                        candidates.get(cell.value()).add(cell);
-                        continue;
-                    }
-
-                    var row = board.getRow(cell.y());
-                    var column = board.getColumn(cell.x());
-
-                    for (var value: candidates.keySet()) {
-                        if (block.stream().anyMatch(c -> c.value().equals(value))) {
-                            continue;
-                        }
-                        if (row.stream().anyMatch(c -> c.value().equals(value))) {
-                            continue;
-                        }
-                        if (column.stream().anyMatch(c -> c.value().equals(value))) {
-                            continue;
-                        }
-
-                        candidates.get(value).add(cell);
-                    }
+                for (var coordinate: coordinates) {
+                    findsCandidates(coordinate, candidates);
                 }
-                board.updateBy(candidates);
+                update(board, candidates);
             }
         }
-
-        return board.getAnswer();
     }
 
-    private Map<String, List<Cell>> initializeCandidates() {
-        var blockCandidate = new HashMap<String, List<Cell>>();
-        blockCandidate.put("1", new ArrayList<Cell>());
-        blockCandidate.put("2", new ArrayList<Cell>());
-        blockCandidate.put("3", new ArrayList<Cell>());
-        blockCandidate.put("4", new ArrayList<Cell>());
-        blockCandidate.put("5", new ArrayList<Cell>());
-        blockCandidate.put("6", new ArrayList<Cell>());
-        blockCandidate.put("7", new ArrayList<Cell>());
-        blockCandidate.put("8", new ArrayList<Cell>());
-        blockCandidate.put("9", new ArrayList<Cell>());
+    private void update(char[][] board, Map<String, List<Coordinate>> candidates) {
+        board[0][0] = '1';
+        board[0][3] = '1';
+        board[1][3] = '1';
+    }
+
+    private void findsCandidates(Coordinate coordinate, Map<String, List<Coordinate>> candidates) {
+
+    }
+
+    public boolean hasEmptyCell(char[][] board) {
+        for (char[] row: board) {
+            if (Arrays.asList(row).contains('.')) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public List<String> getRow(char[][] board, int i) {
+        var row = board[i];
+        return Arrays.asList(row).stream().map(c -> String.valueOf(c)).toList();
+    }
+
+    public List<String> getColumn(char[][] board, int j) {
+
+        var column = new ArrayList<String>();
+        for (var row: board) {
+            column.add(String.valueOf(row[j]));
+        }
+
+        return column;
+    }
+
+    public List<String> getBlock(char[][] board, int i, int j) {
+        var block = new ArrayList<String>();
+        var iStart = Math.floorDiv(i, 3) * 3;
+        var jStart = Math.floorDiv(j, 3) * 3;
+        for (var _i = iStart; _i < iStart + 3; _i++) {
+            for (var _j = jStart; _j < jStart + 3; _j++) {
+                block.add(String.valueOf(board[_i][_j]));
+            }
+        }
+        return block;
+    }
+
+    public List<List<Coordinate>> createCoordinatesForBlock() {
+        var result = new ArrayList<List<Coordinate>>();
+        for (var n = 0; n < 9; n++) {
+            var coordinates = new ArrayList<Coordinate>();
+            var iStart = Math.floorDiv(n, 3) * 3;
+            var jStart = Math.floorMod(n, 3) * 3;
+            for (int i = iStart; i < iStart + 3; i++) {
+                for (int j = jStart; j < jStart + 3; j++) {
+                    coordinates.add(new Coordinate(i, j));
+                }
+            }
+            result.add(coordinates);
+        }
+        return result;
+    }
+    private Map<String, List<Coordinate>> initializeCandidates() {
+        var blockCandidate = new HashMap<String, List<Coordinate>>();
+        for (int i = 1; i <= 9; i++) {
+            blockCandidate.put(String.valueOf(i), new ArrayList<Coordinate>());
+        }
         return blockCandidate;
     }
+
 }

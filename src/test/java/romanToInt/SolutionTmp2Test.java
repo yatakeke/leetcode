@@ -6,7 +6,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class SolutionTest {
+class SolutionTmp2Test {
 
     @ParameterizedTest
     @CsvSource({

@@ -41,8 +41,8 @@ class SolutionTest {
     @Test
     public void trial() {
         var newSolution = new Solution();
-        var result = newSolution.solveSudoku(board);
-        assertThat(result).isEqualTo(expected);
+        newSolution.solveSudoku(board);
+        assertThat(board).isEqualTo(expected);
     }
 
 }
